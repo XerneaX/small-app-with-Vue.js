@@ -40,7 +40,8 @@ new Vue({
         },
         giveUp: function () {
             this.playerHealth = 0;
-            this.loseGame();
+            alert("Pes ettin");
+            this.endGame();
         },
         checkHeal: function(heal){
             return  heal < 0 ? 0 : heal;
