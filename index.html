@@ -13,42 +13,43 @@
         <div class="small-6 columns">
             <h1 class="text-center">SEN</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width:playerHealth + '%'}">
+                        %{{playerHealth}}
                 </div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">CANAVAR</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width:monsterHealth +'%'}">
+                        %{{monsterHealth}}
                 </div>
             </div>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="!gameButtonsShow">
         <div class="small-12 columns">
-            <button id="start-game">YENİ OYUN</button>
+            <button id="start-game" @click="newGame">YENİ OYUN</button>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="gameButtonsShow">
         <div class="small-12 columns">
-            <button id="attack">SALDIRI</button>
-            <button id="special-attack">ÖZEL SALDIRI</button>
-            <button id="heal">İLK YARDIM</button>
-            <button id="give-up">PES ET!</button>
+            <button id="attack" @click="attack">SALDIRI</button>
+            <button id="special-attack" @click="specialAttack">ÖZEL SALDIRI</button>
+            <button id="heal" @click="heal">İLK YARDIM</button>
+            <button id="give-up" @click="giveUp">PES ET!</button>
         </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-if="gameButtonsShow && matchInfo.length > 0">
         <div class="small-12 columns">
             <ul>
-                <li>
-
+                <li v-for ="info in matchInfo" :style="{backgroundColor : info.code}">
+                    {{info.action}} : {{info.heal}}
                 </li>
             </ul>
         </div>
     </section>
 </div>
+<script src="app.js"></script>
 </body>
 </html>
