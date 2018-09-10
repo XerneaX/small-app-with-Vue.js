@@ -33,9 +33,12 @@ new Vue({
         },
         heal: function () {
             if(this.playerHealth<100){
-                let heal = Math.round(Math.random()*10+10);
-                this.playerHealth = Math.round(this.playerHealth + heal - (Math.random()*10+10));
+                let heal = Math.round(Math.random()*10+20);
+                let attack = Math.round((Math.random()*10+10));
+                this.playerHealth = Math.round(this.playerHealth + heal - attack);
+                this.playerHealth = this.healLimit(this.playerHealth);
                 this.matchInfo.push({action:"İlk Yardım", heal: heal, code:'green'});
+                this.matchInfo.push({action: "Canavar Saldırısı", heal: attack, code: 'red'});
             }
         },
         giveUp: function () {
@@ -46,7 +49,11 @@ new Vue({
         checkHeal: function(heal){
             return  heal < 0 ? 0 : heal;
         },
-
+        healLimit: function(heal){
+            if(heal > 100)
+               return 100;
+            return heal;
+        },
         endGame: function () {
             this.playerHealth = 100;
             this.monsterHealth = 100;
